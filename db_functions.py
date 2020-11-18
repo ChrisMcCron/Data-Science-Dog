@@ -163,15 +163,12 @@ Here is some commented out print code that you can run to see how to easily pars
 the values you need at different points in time to fill out the entire data_sci_dog2.sql database
 """
 
-
 #planets = create_planet(8)
 #print(planets)
 #print(planets[1])
 #print(planets[1][0])
 #print(planets[1][1])
 #print(planets[1][2])
-
-# def planet_idxs(n):
 
 """
 journey_keys() takes the parametre of how many planets you would like to visit, from a dictionary of planets.
