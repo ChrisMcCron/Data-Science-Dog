@@ -8,45 +8,18 @@ import mysql.connector
 db = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    passwd = 'libby69',
+    passwd = '********', # must enter password for your local database
     database = 'data_sci_dog')
 
 c = db.cursor()
 
 """ ### ### ### ### ### ### ### SET SIMULATION PARAMETERS ### ### ### ### ### ### ### ###  """
 
-"""
-
-sim_size: how many planets will be generated total
-puppy_fleet_size: how many platoons of puppies will be made that could possible be deployed to a planet
-journey_len: how many planets data science dog will visit, how many archelogical sites he will dig at, and how many
-             puppy colonies will be made (i.e., 1 of each per planet visited).
-
-"""
-
 sim_size = 100 #must be greater than journey_len
 puppy_fleet_size = 50 #must be greater than journey_len
 journey_len = 25
 
 """ ### ### ### ### ### ### ### GENERATING UNIVERSE ### ### ### ### ### ### ### ###  """
-
-"""
-
-planets: all data for planets, plus the probability of finding a bone and actual bones found when planet is visited.
-         The values for probability of finding a bone and actual bones found will be used in the tables bones and
-         journeys respectively.
-
-journey: the keys of all planets that Data Science Dog will visit.
-
-puppies: all possible combos of puppies that can be selected for colonies.
-
-colony_keys: all keys selected from puppies for colonies.
-
-bones: all bones found, the complete data set ready to be inserted into the bones table in DB
-journey_data: all data that needs to be inserted into the journey table in DB. Contains the chance of finding
-              a bone on a given planet as well per roll on a given planet. Essentially, it builds the primary 
-              table in the DB.
-"""
 
 planets = create_planet(sim_size)
 
@@ -70,23 +43,6 @@ print('Bones data set =\n', bones, '\n')
 print('Journeys table data =\n', journey_data, '\n')
 
 """ ### ### ### ### ### ### ### DATA INSERTION INTO SQL ### ### ### ### ### ### ### ###  """
-
-"""
-
-    At this point in the program, all data has been generated and stored in variables. The only remaining task is to
-enter all of the data into the SQL Database. The following series of loops and functions perform the task of filling
-out all the SQL tables
-
-    When the program executes correctly:
-- The tables journeys and bones tables should have no missing values.
-- The planets table should only have NULL values in journey_id (meaning the planet was not visited)
-- The puppies table should only have NULL values in planet_id (meaning that the puppies were not used to colonize a
-  planet
-
-    In mySQL Workbench, you can use the tab Database > Reverse Engineer to generate a EER (enhanced entity-relationship)
-diagram that will show all the relationships among the tables.
-
-"""
 
 q1 = 'INSERT INTO planets (name_of_planet, age_billions, esi, meteor_events) VALUES (%s, %s, %s, %s)'
 
